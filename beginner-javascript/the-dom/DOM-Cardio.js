@@ -13,20 +13,17 @@ pageBody.prepend(myDiv);
 /* **************************************** */
 
 // make an unordered list
-const myUl = document.createElement('ul');
-
 // add three list items with the words "one, two three" in them
 // put that list into the above wrapper
-for (let i = 0; i < 3; i++) {
-  const myLi = document.createElement('li');
-  myUl.appendChild(myLi);
-}
+const ul = `
+    <ul>
+        <li>One</li>
+        <li>Two</li>
+        <li>Three</li>
+    </ul>
+`
 
-myUl.children[0].textContent = 'One';
-myUl.children[1].textContent = 'Two';
-myUl.children[2].textContent = 'Three';
-
-myDiv.append(myUl);
+myDiv.innerHTML = ul;
 
 /* **************************************** */
 
@@ -54,11 +51,11 @@ const myDiv2 = `
     </div>    
 `;
 
-myUl.insertAdjacentHTML('beforebegin', myDiv2);
+myDiv.insertAdjacentHTML('afterbegin', myDiv2);
 
 // add a class to the second paragraph called warning
 const pagePs = document.querySelectorAll('p');
-pagePs[1].className = 'Hello';
+pagePs[1].className = 'Warning';
 // remove the first paragraph
 pagePs[0].remove();
 
@@ -75,7 +72,7 @@ function generatePlayerCard(name, age, height) {
         <div class="playerCard">
             <h2>${name} — ${age}</h2>
             <p>They are ${height} and ${age} years old. In Dog years this person would be 
-            ${Math.round(age / 7)}. That would be a tall dog!</p>
+            ${Math.round(age * 7)}. That would be a tall dog!</p>
             <button class='remove'>Remove</button>
         </div>
  `;
@@ -102,9 +99,10 @@ pageBody.prepend(cardDiv);
 // loop over them and attach a listener
 const buttons = document.querySelectorAll('.remove');
 buttons.forEach(button => {
-    button.addEventListener('click', () => { removeCard(button); });
+    button.addEventListener('click', removeCard);
 });
 
-function removeCard(button) {
-    button.parentNode.remove();
+function removeCard(event) {
+    const buttonClicked = event.target;
+    buttonClicked.parentNode.remove();
 }
