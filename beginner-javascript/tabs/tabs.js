@@ -1,9 +1,6 @@
-console.log('ya ya wes we get it.. IT WORKS!');
-
 const tabs = document.querySelectorAll('button[role="tab"]');
 
-function handleTabClick(e) {
-  const clickedTab = e.currentTarget;
+function changeTabColor(clickedTab) {
   const isSelected = clickedTab.attributes['aria-selected'].nodeValue;
 
   if (isSelected === 'false') {
@@ -13,6 +10,27 @@ function handleTabClick(e) {
 
     clickedTab.attributes['aria-selected'].nodeValue = true;
   }
+}
+
+function changeTabPanel(clickedTab) {
+  const tabId = clickedTab.id;
+  const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+  tabPanels.forEach(tabPanel => {
+    const panelLabel = tabPanel.attributes['aria-labelledby'].nodeValue;
+    tabPanel.hidden = true;
+
+    if (tabId === panelLabel) {
+      tabPanel.hidden = false;
+    }
+  });
+}
+
+function handleTabClick(e) {
+  const clickedTab = e.currentTarget;
+
+  changeTabColor(clickedTab);
+  changeTabPanel(clickedTab);
 }
 
 tabs.forEach(tab => {
