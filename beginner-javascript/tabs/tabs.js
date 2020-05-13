@@ -1,29 +1,23 @@
+const tabsWrapper = document.querySelector('.tabs');
 const tabs = document.querySelectorAll('button[role="tab"]');
+const tabPanels = document.querySelectorAll('[role="tabpanel"]');
 
 function changeTabColor(clickedTab) {
-  const isSelected = clickedTab.attributes['aria-selected'].nodeValue;
+  tabs.forEach(tab => {
+    tab.setAttribute('aria-selected', false);
+  });
 
-  if (isSelected === 'false') {
-    tabs.forEach(tab => {
-      tab.attributes['aria-selected'].nodeValue = false;
-    });
-
-    clickedTab.attributes['aria-selected'].nodeValue = true;
-  }
+  clickedTab.setAttribute('aria-selected', true);
 }
 
 function changeTabPanel(clickedTab) {
-  const tabId = clickedTab.id;
-  const tabPanels = document.querySelectorAll('[role="tabpanel"]');
-
-  tabPanels.forEach(tabPanel => {
-    const panelLabel = tabPanel.attributes['aria-labelledby'].nodeValue;
-    tabPanel.hidden = true;
-
-    if (tabId === panelLabel) {
-      tabPanel.hidden = false;
-    }
+  tabPanels.forEach(panel => {
+    panel.hidden = true;
   });
+
+  const tabId = clickedTab.id;
+  const tabPanel = tabsWrapper.querySelector(`[aria-labelledby = ${tabId}`);
+  tabPanel.hidden = false;
 }
 
 function handleTabClick(e) {
