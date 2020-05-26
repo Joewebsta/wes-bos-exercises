@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Text Generator</title>
-  <link rel="stylesheet" href="../../base.css">
+  <link rel="stylesheet" href="../base.css">
   <style>
     body {
       min-height: 100vh;
@@ -23,16 +23,51 @@
       display: grid;
     }
 
+    fieldset {
+      border: none;
+    }
+
+    label {
+      display: block;
+    }
+
     textarea {
       width: 100%;
+    }
+
+    hr {
+      display: block;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      margin-left: auto;
+      margin-right: auto;
+      border-style: inset;
+      border-width: 1px;
     }
   </style>
 </head>
 
 <body>
-
-
-
+  <div class='typer'>
+    <form action="">
+      <fieldset>
+        <label for="sarcastic">
+          <input type="radio" id="sarcastic" name="type">
+          Sarcastic
+        </label>
+        <label for="funky">
+          <input type="radio" id="funky" name="type">
+          Funky
+        </label>
+        <label for="poor-structure">
+          <input type="radio" id="poor-structure" name="type">
+          Unable to Structure a Sentence
+        </label>
+      </fieldset>
+      <textarea name="text" id="text"></textarea>
+    </form>
+    <p class="result"></p>
+  </div>
   <script src="./text.js"></script>
 </body>
 
