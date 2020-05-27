@@ -1,10 +1,26 @@
+const radioBtns = document.querySelectorAll('input[type=radio]');
 const textArea = document.querySelector('textarea');
-
 const results = document.querySelector('.result');
 
-console.log(textArea);
+function updateResults(text) {
+  results.textContent = text;
+}
 
-textArea.addEventListener('keydown', e => {
+function generateSarcasticText(text) {
+  const upperCaseString = [...text].map(char => char.toUpperCase());
+
+  return upperCaseString.join('');
+}
+
+function keyPressHandler(e) {
+  const selectedInput = [...radioBtns].filter(radioInput => radioInput.checked);
+  const textMode = selectedInput[0].value;
   const textAreaText = e.currentTarget.value;
-  results.textContent = textAreaText;
-});
+
+  if (textMode === 'sarcastic') {
+    const modifiedText = generateSarcasticText(textAreaText);
+    updateResults(modifiedText);
+  }
+}
+
+textArea.addEventListener('keydown', keyPressHandler);
