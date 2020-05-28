@@ -11,7 +11,7 @@ function indexIsOdd(index) {
 }
 
 function generateSarcasticText(text) {
-  const upperCaseString = [...text].map((char, idx) => {
+  const sarcasticString = [...text].map((char, idx) => {
     if (idx === 0) {
       return char.toLowerCase();
     }
@@ -20,8 +20,21 @@ function generateSarcasticText(text) {
     }
     return char.toLowerCase();
   });
+  return sarcasticString.join('');
+}
 
-  return upperCaseString.join('');
+function isTrue() {
+  return Math.round(Math.random());
+}
+
+function generateUnableText(text) {
+  const unableString = text.split('').map(char => {
+    if (char === ' ' && isTrue) {
+      return '...';
+    }
+    return char;
+  });
+  return unableString.join('');
 }
 
 function keyPressHandler(e) {
@@ -30,8 +43,9 @@ function keyPressHandler(e) {
   const textAreaText = e.currentTarget.value;
 
   if (textMode === 'sarcastic') {
-    const modifiedText = generateSarcasticText(textAreaText);
-    updateResults(modifiedText);
+    updateResults(generateSarcasticText(textAreaText));
+  } else if (textMode === 'unable') {
+    updateResults(generateUnableText(textAreaText));
   }
 }
 
