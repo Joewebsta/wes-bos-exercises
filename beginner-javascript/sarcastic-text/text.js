@@ -6,8 +6,20 @@ function updateResults(text) {
   results.textContent = text;
 }
 
+function indexIsOdd(index) {
+  return index % 2 === 1;
+}
+
 function generateSarcasticText(text) {
-  const upperCaseString = [...text].map(char => char.toUpperCase());
+  const upperCaseString = [...text].map((char, idx) => {
+    if (idx === 0) {
+      return char.toLowerCase();
+    }
+    if (indexIsOdd(idx)) {
+      return char.toUpperCase();
+    }
+    return char.toLowerCase();
+  });
 
   return upperCaseString.join('');
 }
