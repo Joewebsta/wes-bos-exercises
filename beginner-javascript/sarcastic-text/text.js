@@ -37,16 +37,27 @@ function generateUnableText(text) {
   return unableString.join('');
 }
 
-function keyPressHandler(e) {
-  const selectedInput = [...radioBtns].filter(radioInput => radioInput.checked);
-  const textMode = selectedInput[0].value;
-  const textAreaText = e.currentTarget.value;
-
+function executeTextMode(textMode, textAreaText) {
   if (textMode === 'sarcastic') {
     updateResults(generateSarcasticText(textAreaText));
   } else if (textMode === 'unable') {
     updateResults(generateUnableText(textAreaText));
   }
 }
+
+function keyPressHandler(e) {
+  const selectedInput = [...radioBtns].filter(radioInput => radioInput.checked);
+  const textMode = selectedInput[0].value;
+  const textAreaText = e.currentTarget.value;
+  executeTextMode(textMode, textAreaText);
+}
+
+radioBtns.forEach(radioBtn => {
+  radioBtn.addEventListener('click', e => {
+    const textMode = e.currentTarget.value;
+    const textAreaText = textArea.value;
+    executeTextMode(textMode, textAreaText);
+  });
+});
 
 textArea.addEventListener('keydown', keyPressHandler);
